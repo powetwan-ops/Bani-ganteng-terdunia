@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bani Terganteng di Dunia 🥳</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #2b0a3d, #6a1b9a, #c2185b, #ff69b4);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    background: rgba(43, 10, 61, 0.55);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 105, 180, 0.4);
+    box-shadow: 0 2px 18px rgba(194, 24, 91, 0.35);
+    position: relative;
+    z-index: 10;
+  }
+
+  .brand {
+    font-weight: bold;
+    font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+    color: #ffd6f2;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 8px #ff69b4;
+    white-space: nowrap;
+  }
+
+  .brand span { color: #ff69b4; }
+
+  /* ===== NAMA USER (BISA DIKLIK) ===== */
+  .username {
+    font-size: clamp(0.8rem, 2.3vw, 0.95rem);
+    color: #fff;
+    background: linear-gradient(45deg, #8e24aa, #d81b60);
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 182, 230, 0.5);
+    box-shadow: 0 0 12px rgba(255, 105, 180, 0.5);
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+
+  .username:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 22px rgba(255, 105, 180, 0.9);
+  }
+
+  .username:active { transform: scale(0.94); }
+
+  /* Animasi "pulse" saat diklik */
+  .username.pulse {
+    animation: pulseClick 0.5s ease;
+  }
+
+  @keyframes pulseClick {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.25); box-shadow: 0 0 35px #ff69b4; }
+    100% { transform: scale(1); }
+  }
+
+  /* ===== KONTEN TENGAH ===== */
+  .container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(14px);
+    border: 2px solid rgba(255, 182, 230, 0.45);
+    border-radius: 24px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 40px rgba(43, 10, 61, 0.6);
+    max-width: 600px;
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    color: #fff;
+    line-height: 1.3;
+    text-shadow: 0 0 10px #c2185b, 0 0 22px #ff69b4, 0 0 44px #ab47bc;
+    animation: glow 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px #c2185b, 0 0 20px #ff69b4; }
+    to   { text-shadow: 0 0 20px #ff69b4, 0 0 38px #ab47bc, 0 0 60px #fff; }
+  }
+
+  .emoji {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    display: inline-block;
+    animation: bounce 1s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  p.subtitle {
+    color: #ffd6f2;
+    margin-top: 16px;
+    font-size: clamp(0.9rem, 3vw, 1.05rem);
+    opacity: 0.9;
+  }
+
+  button {
+    margin-top: 28px;
+    padding: 14px 32px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #4a0a5e;
+    background: linear-gradient(45deg, #ff69b4, #d500f9);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 22px rgba(213, 0, 249, 0.55);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 30px rgba(255, 105, 180, 0.85);
+  }
+
+  button:active { transform: scale(0.95); }
+
+  /* ===== MODAL EDIT NAMA ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 5, 30, 0.7);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: linear-gradient(135deg, #4a0a5e, #8e24aa);
+    border: 2px solid rgba(255, 182, 230, 0.6);
+    border-radius: 20px;
+    padding: 30px 26px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 10px 50px rgba(255, 105, 180, 0.5);
+    animation: modalPop 0.3s ease;
+  }
+
+  @keyframes modalPop {
+    from { transform: scale(0.7); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  .modal h2 {
+    color: #ffd6f2;
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+    text-shadow: 0 0 10px #ff69b4;
+  }
+
+  .modal input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 182, 230, 0.6);
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 20px;
+  }
+
+  .modal input::placeholder { color: rgba(255, 255, 255, 0.5); }
+
+  .modal input:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 0 12px rgba(255, 105, 180, 0.7);
+  }
+
+  .modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .modal-buttons button {
+    margin-top: 0;
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+
+  .btn-cancel {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #ffd6f2 !important;
+    box-shadow: none !important;
+  }
+
+  /* ===== KONFETI ===== */
+  .confetti {
+    position: fixed;
+    top: -10px;
+    width: 10px;
+    height: 16px;
+    opacity: 0.9;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 999;
+  }
+
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">Web by <span>Bani Ganteng</span></div>
+    <!-- NAMA USER: sekarang bisa diklik -->
+    <div class="username" id="namaUser" title="Klik untuk ganti nama">Nama Anda</div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <span class="emoji">🥳</span>
+      <h1>Bani Terganteng<br>di Dunia!</h1>
+      <p class="subtitle">Klik tombol di bawah buat nambahin bukti kalau Bani memang paling ganteng 😎</p>
+      <button id="gantengBtn">Bani Ganteng Banget! 🎉</button>
+    </div>
+  </div>
+
+  <!-- ===== MODAL EDIT NAMA ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2>✏️ Ganti Nama Anda</h2>
+      <input type="text" id="inputNama" placeholder="Masukkan nama baru..." maxlength="20">
+      <div class="modal-buttons">
+        <button class="btn-cancel" id="btnBatal">Batal</button>
+        <button id="btnSimpan">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ====== GANTI NAMA DEFAULT DI SINI ====== */
+  let NAMA_ANDA = "Nama Anda";
+
+  const namaEl = document.getElementById('namaUser');
+  const overlay = document.getElementById('modalOverlay');
+  const inputNama = document.getElementById('inputNama');
+  const btnBatal = document.getElementById('btnBatal');
+  const btnSimpan = document.getElementById('btnSimpan');
+
+  // Tampilkan nama tersimpan (kalau ada)
+  if (localStorage.getItem('namaUser')) {
+    NAMA_ANDA = localStorage.getItem('namaUser');
+  }
+  namaEl.textContent = NAMA_ANDA;
+
+  /* ===== KLIK NAMA → BUKA MODAL ===== */
+  namaEl.addEventListener('click', () => {
+    // Animasi pulse
+    namaEl.classList.add('pulse');
+    setTimeout(() => namaEl.classList.remove('pulse'), 500);
+
+    // Buka modal
+    inputNama.value = namaEl.textContent;
+    overlay.classList.add('show');
+    setTimeout(() => inputNama.focus(), 100);
+  });
+
+  /* ===== SIMPAN NAMA ===== */
+  btnSimpan.addEventListener('click', () => {
+    const namaBaru = inputNama.value.trim();
+    if (namaBaru === '') {
+      inputNama.style.borderColor = '#ff5e5e';
+      inputNama.placeholder = 'Nama tidak boleh kosong!';
+      return;
+    }
+    NAMA_ANDA = namaBaru;
+    namaEl.textContent = NAMA_ANDA;
+    localStorage.setItem('namaUser', NAMA_ANDA);
+    overlay.classList.remove('show');
+    buatKonfeti();
+  });
+
+  /* ===== BATAL ===== */
+  btnBatal.addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
+
+  /* Tutup modal kalau klik di luar */
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+
+  /* Enter di input = simpan */
+  inputNama.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') btnSimpan.click();
+    if (e.key === 'Escape') btnBatal.click();
+  });
+
+  /* ===== KONFETI ===== */
+  const colors = ['#ff69b4', '#d500f9', '#8e24aa', '#ff80ab', '#b388ff', '#ffd6f2'];
+
+  function buatKonfeti() {
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElement('div');
+      c.classList.add('confetti');
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      c.style.animationDelay = Math.random() * 0.5 + 's';
+      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 4500);
+    }
+  }
+
+  document.getElementById('gantengBtn').addEventListener('click', () => {
+    buatKonfeti();
+    const pesan = [
+      'Bani emang paling ganteng! 🥳',
+      'Fakta ilmiah: Bani = ganteng 😎',
+      'Gantengnya nggak ada obat! ✨',
+      'Bani: 100% ganteng, 0% jelek 💯'
+    ];
+    alert(pesan[Math.floor(Math.random() * pesan.length)]);
+  });
+
+  window.addEventListener('load', buatKonfeti);
+</script>
+</body>
+</html>
